@@ -1,0 +1,181 @@
+---
+title: 'Get Pets by Status'
+api: 'GET /pet/findByStatus'
+description: 'Find pets by their availability status'
+---
+
+## Overview
+
+Returns a list of pets filtered by their status. Multiple status values can be provided with comma-separated strings.
+
+## Endpoint
+
+```
+GET /pet/findByStatus
+```
+
+## Parameters
+
+<ParamField query="status" type="string" required>
+  Status values that need to be considered for filter. Can be `available`, `pending`, or `sold`.
+  
+  Example: `available`
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="Pet[]">
+  Array of pet objects matching the status filter
+  
+  <Expandable title="Pet Object">
+    <ResponseField name="id" type="integer">
+      Unique identifier for the pet
+    </ResponseField>
+    
+    <ResponseField name="name" type="string" required>
+      Pet name
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Pet status in the store: `available`, `pending`, or `sold`
+    </ResponseField>
+    
+    <ResponseField name="category" type="object">
+      Category the pet belongs to
+      <Expandable title="Category">
+        <ResponseField name="id" type="integer">
+          Category ID
+        </ResponseField>
+        <ResponseField name="name" type="string">
+          Category name
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+    
+    <ResponseField name="photoUrls" type="string[]" required>
+      Array of photo URLs
+    </ResponseField>
+    
+    <ResponseField name="tags" type="Tag[]">
+      Tags associated with the pet
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Code Examples
+
+### Using the SDK
+
+```typescript
+import { sdk } from './api'
+
+const { data, error } = await sdk.findPetsByStatus({
+  query: { status: 'available' }
+})
+
+if (error) {
+  console.error('Failed to fetch pets:', error)
+  return
+}
+
+console.log('Available pets:', data)
+```
+
+### Using TanStack Query Hook
+
+```typescript
+import { useFindPetsByStatusQuery } from './client/@tanstack/react-query.gen'
+import { sdk } from './api'
+
+function AvailablePets() {
+  const { data, isLoading, error } = useFindPetsByStatusQuery({
+    client: sdk,
+    query: { status: 'available' }
+  })
+
+  if (isLoading) return <div>Loading pets...</div>
+  if (error) return <div>Error: {error.message}</div>
+
+  return (
+    <div>
+      <h2>Available Pets</h2>
+      {data?.map(pet => (
+        <div key={pet.id}>
+          <h3>{pet.name}</h3>
+          <p>Status: {pet.status}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+## Response Examples
+
+### Success Response (200)
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Fluffy",
+    "category": {
+      "id": 1,
+      "name": "Dogs"
+    },
+    "photoUrls": [
+      "https://example.com/fluffy.jpg"
+    ],
+    "tags": [
+      {
+        "id": 1,
+        "name": "friendly"
+      }
+    ],
+    "status": "available"
+  }
+]
+```
+
+### Error Response (400)
+
+```json
+{
+  "code": 400,
+  "message": "Invalid status value"
+}
+```
+
+## Status Codes
+
+| Code | Description |
+|------|-------------|
+| 200  | Successful operation |
+| 400  | Invalid status value |
+
+<Note>
+  This endpoint does not require authentication.
+</Note>
+
+## Try it Out
+
+<CodeGroup>
+
+```typescript SDK
+import { sdk } from './api'
+
+const result = await sdk.findPetsByStatus({
+  query: { status: 'available' }
+})
+```
+
+```typescript React Query
+import { useFindPetsByStatusQuery } from './client/@tanstack/react-query.gen'
+
+const { data } = useFindPetsByStatusQuery({
+  client: sdk,
+  query: { status: 'available' }
+})
+```
+
+</CodeGroup>

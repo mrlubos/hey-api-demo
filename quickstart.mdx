@@ -1,0 +1,105 @@
+---
+title: 'Quickstart'
+description: 'Start using the PetStore API Demo in under 5 minutes'
+---
+
+## Setup your development environment
+
+Learn how to get the PetStore API Demo running on your local machine.
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+<AccordionGroup>
+  <Accordion icon="node-js" title="Node.js 20 or higher">
+    Download and install Node.js from [nodejs.org](https://nodejs.org/)
+    
+    Verify installation:
+    ```bash
+    node --version
+    ```
+  </Accordion>
+  
+  <Accordion icon="npm" title="npm (comes with Node.js)">
+    npm is included with Node.js. Verify installation:
+    ```bash
+    npm --version
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Installation
+
+<Steps>
+  <Step title="Clone the repository">
+    Clone the repository to your local machine:
+    ```bash
+    git clone https://github.com/mrlubos/hey-api-demo.git
+    cd hey-api-demo
+    ```
+  </Step>
+  
+  <Step title="Install dependencies">
+    Install the required npm packages:
+    ```bash
+    npm install
+    ```
+  </Step>
+  
+  <Step title="Generate API client">
+    Generate the type-safe API client from the OpenAPI specification:
+    ```bash
+    npm run generate:client
+    ```
+    
+    This will create all the necessary TypeScript types, SDK methods, and TanStack Query hooks in `src/client/`.
+  </Step>
+  
+  <Step title="Start the development server">
+    Run the development server:
+    ```bash
+    npm run dev
+    ```
+    
+    The application will be available at `http://localhost:5173`
+  </Step>
+</Steps>
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card
+    title="Development Guide"
+    icon="code"
+    href="/development"
+  >
+    Learn about the project structure and development workflow
+  </Card>
+  
+  <Card
+    title="API Reference"
+    icon="book"
+    href="/api-reference/introduction"
+  >
+    Explore the available API endpoints and code examples
+  </Card>
+</CardGroup>
+
+## Available Scripts
+
+Here are the npm scripts you can use:
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start the development server with hot reload |
+| `npm run build` | Build the application for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run the linter (Oxlint) to check code quality |
+| `npm run generate:client` | Regenerate the API client from OpenAPI spec |
+
+<Note>
+  The API client is automatically generated from the OpenAPI specification. 
+  Whenever you update `petstore-openapi.yaml`, run `npm run generate:client` 
+  to update the TypeScript types and SDK methods.
+</Note>

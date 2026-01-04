@@ -1,0 +1,267 @@
+---
+title: 'Get Pet by ID'
+api: 'GET /pet/{petId}'
+description: 'Find a pet by its unique ID'
+---
+
+## Overview
+
+Returns a single pet by its unique identifier.
+
+## Endpoint
+
+```
+GET /pet/{petId}
+```
+
+## Path Parameters
+
+<ParamField path="petId" type="integer" required>
+  ID of the pet to return
+  
+  Example: `123`
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="Pet">
+  The pet object
+  
+  <Expandable title="Pet Object Properties">
+    <ResponseField name="id" type="integer">
+      Unique identifier for the pet
+    </ResponseField>
+    
+    <ResponseField name="name" type="string" required>
+      Pet name
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Pet status: `available`, `pending`, or `sold`
+    </ResponseField>
+    
+    <ResponseField name="category" type="object">
+      Category information
+      
+      <Expandable title="Category">
+        <ResponseField name="id" type="integer">
+          Category ID
+        </ResponseField>
+        <ResponseField name="name" type="string">
+          Category name
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+    
+    <ResponseField name="photoUrls" type="string[]" required>
+      Array of photo URLs
+    </ResponseField>
+    
+    <ResponseField name="tags" type="Tag[]">
+      Tags associated with the pet
+      
+      <Expandable title="Tag">
+        <ResponseField name="id" type="integer">
+          Tag ID
+        </ResponseField>
+        <ResponseField name="name" type="string">
+          Tag name
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Code Examples
+
+### Using the SDK
+
+```typescript
+import { sdk } from './api'
+
+const petId = 123
+
+const { data, error } = await sdk.getPetById({
+  path: { petId }
+})
+
+if (error) {
+  if (error.status === 404) {
+    console.error('Pet not found')
+  } else {
+    console.error('Failed to fetch pet:', error)
+  }
+  return
+}
+
+console.log('Pet details:', data)
+```
+
+### Using TanStack Query Hook
+
+```typescript
+import { useGetPetByIdQuery } from './client/@tanstack/react-query.gen'
+import { sdk } from './api'
+
+function PetDetails({ petId }: { petId: number }) {
+  const { data, isLoading, error } = useGetPetByIdQuery({
+    client: sdk,
+    path: { petId }
+  })
+
+  if (isLoading) return <div>Loading pet details...</div>
+  
+  if (error) {
+    return <div>Error: Pet not found</div>
+  }
+
+  return (
+    <div>
+      <h2>{data.name}</h2>
+      <p>Status: {data.status}</p>
+      {data.category && <p>Category: {data.category.name}</p>}
+      <div>
+        {data.photoUrls.map((url, index) => (
+          <img key={index} src={url} alt={data.name} />
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+### With Error Handling
+
+```typescript
+import { sdk } from './api'
+
+async function fetchPet(petId: number) {
+  try {
+    const { data, error } = await sdk.getPetById({
+      path: { petId }
+    })
+
+    if (error) {
+      switch (error.status) {
+        case 400:
+          throw new Error('Invalid ID supplied')
+        case 404:
+          throw new Error('Pet not found')
+        default:
+          throw new Error('An unexpected error occurred')
+      }
+    }
+
+    return data
+  } catch (err) {
+    console.error('Error fetching pet:', err)
+    throw err
+  }
+}
+```
+
+## Response Examples
+
+### Success Response (200)
+
+```json
+{
+  "id": 123,
+  "name": "Fluffy",
+  "category": {
+    "id": 1,
+    "name": "Dogs"
+  },
+  "photoUrls": [
+    "https://example.com/fluffy.jpg"
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "name": "friendly"
+    },
+    {
+      "id": 2,
+      "name": "trained"
+    }
+  ],
+  "status": "available"
+}
+```
+
+### Error Response (400)
+
+```json
+{
+  "code": 400,
+  "message": "Invalid ID supplied"
+}
+```
+
+### Error Response (404)
+
+```json
+{
+  "code": 404,
+  "message": "Pet not found"
+}
+```
+
+## Status Codes
+
+| Code | Description |
+|------|-------------|
+| 200  | Successful operation |
+| 400  | Invalid ID supplied |
+| 404  | Pet not found |
+
+## Authentication
+
+This endpoint requires authentication with a valid API key.
+
+<ParamField header="api_key" type="string" required>
+  API key for authentication
+</ParamField>
+
+<Note>
+  The pet ID must be a valid integer. The endpoint will return a 404 error if the pet with the specified ID doesn't exist.
+</Note>
+
+## Try it Out
+
+<CodeGroup>
+
+```typescript SDK
+import { sdk } from './api'
+
+const result = await sdk.getPetById({
+  path: { petId: 123 }
+})
+```
+
+```typescript React Query
+import { useGetPetByIdQuery } from './client/@tanstack/react-query.gen'
+
+const { data } = useGetPetByIdQuery({
+  client: sdk,
+  path: { petId: 123 }
+})
+```
+
+```typescript With Error Handling
+import { sdk } from './api'
+
+const { data, error } = await sdk.getPetById({
+  path: { petId: 123 }
+})
+
+if (error?.status === 404) {
+  console.error('Pet not found')
+} else if (error) {
+  console.error('Failed to fetch pet')
+} else {
+  console.log('Pet:', data)
+}
+```
+
+</CodeGroup>

@@ -1,6 +1,10 @@
 export default {
   input: './petstore-openapi.yaml',
-  output: './src/client',
+  output: {
+    path: './src/client',
+    // Generate a copy of the input source with code examples attached
+    source: true,
+  },
   plugins: [
     // Generate TypeScript types from OpenAPI schema
     '@hey-api/typescript',
@@ -14,6 +18,8 @@ export default {
         containerName: 'PetStore', // Use container name in the SDK
         methods: 'instance', // Use instance methods instead of static
       },
+      // Enable code examples for SDK operations
+      examples: true,
     },
     // Generate TanStack Query hooks for data fetching
     '@tanstack/react-query',
