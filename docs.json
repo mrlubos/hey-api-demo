@@ -77,5 +77,5 @@
     "github": "https://github.com/mintlify",
     "linkedin": "https://www.linkedin.com/company/mintsearch"
   },
-  "openapi": "src/client/source.json"
+  "openapi": "./api-reference/openapi.json"
 }
