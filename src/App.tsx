@@ -9,6 +9,7 @@ import type { Pet } from './client/types.gen'
 function App() {
   const [petId, setPetId] = useState('')
   const [newPetName, setNewPetName] = useState('')
+  const [newPetCategory, setNewPetCategory] = useState('')
   const queryClient = useQueryClient()
 
   // Query to fetch pets by status
@@ -28,6 +29,7 @@ function App() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['findPetsByStatus'] })
       setNewPetName('')
+      setNewPetCategory('')
     },
   })
 
@@ -35,10 +37,21 @@ function App() {
     if (newPetName) {
       addPet.mutate({
         body: {
+          category: {
+            id: 0,
+            name: newPetCategory || 'default',
+          },
+          id: 0,
           name: newPetName,
+          photoUrls: ['string'],
           status: 'available',
-          photoUrls: [],
-        } as Pet,
+          tags: [
+            {
+              id: 0,
+              name: 'string',
+            },
+          ],
+        },
       })
     }
   }
@@ -71,6 +84,11 @@ function App() {
                 placeholder="Enter pet name"
                 value={newPetName}
                 onChange={(e) => setNewPetName(e.target.value)}
+              />
+              <Input
+                placeholder="Enter category (optional)"
+                value={newPetCategory}
+                onChange={(e) => setNewPetCategory(e.target.value)}
               />
               <Button 
                 onClick={handleAddPet} 

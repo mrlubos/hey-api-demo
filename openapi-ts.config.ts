@@ -11,7 +11,7 @@ export default {
       name: '@hey-api/sdk',
       operations: {
         strategy: 'single', // Generate a single SDK class
-        containerName: true, // Use container name in the SDK
+        containerName: 'PetStore', // Use container name in the SDK
         methods: 'instance', // Use instance methods instead of static
       },
     },

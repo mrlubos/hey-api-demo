@@ -3,7 +3,7 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { type Options, Sdk } from '../sdk.gen';
+import { type Options, PetStore } from '../sdk.gen';
 import type { AddPetData, AddPetResponse, CreateUserData, CreateUserResponse, CreateUsersWithListInputData, CreateUsersWithListInputResponse, DeleteOrderData, DeletePetData, DeleteUserData, FindPetsByStatusData, FindPetsByStatusResponse, FindPetsByTagsData, FindPetsByTagsResponse, GetInventoryData, GetInventoryResponse, GetOrderByIdData, GetOrderByIdResponse, GetPetByIdData, GetPetByIdResponse, GetUserByNameData, GetUserByNameResponse, LoginUserData, LoginUserResponse, LogoutUserData, PlaceOrderData, PlaceOrderResponse, UpdatePetData, UpdatePetResponse, UpdatePetWithFormData, UpdatePetWithFormResponse, UpdateUserData, UploadFileData, UploadFileResponse } from '../types.gen';
 
 /**
@@ -14,7 +14,7 @@ import type { AddPetData, AddPetResponse, CreateUserData, CreateUserResponse, Cr
 export const addPetMutation = (options?: Partial<Options<AddPetData>>): UseMutationOptions<AddPetResponse, DefaultError, Options<AddPetData>> => {
     const mutationOptions: UseMutationOptions<AddPetResponse, DefaultError, Options<AddPetData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().addPet({
+            const { data } = await PetStore.__registry.get().addPet({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -33,7 +33,7 @@ export const addPetMutation = (options?: Partial<Options<AddPetData>>): UseMutat
 export const updatePetMutation = (options?: Partial<Options<UpdatePetData>>): UseMutationOptions<UpdatePetResponse, DefaultError, Options<UpdatePetData>> => {
     const mutationOptions: UseMutationOptions<UpdatePetResponse, DefaultError, Options<UpdatePetData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().updatePet({
+            const { data } = await PetStore.__registry.get().updatePet({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -86,7 +86,7 @@ export const findPetsByStatusQueryKey = (options: Options<FindPetsByStatusData>)
  */
 export const findPetsByStatusOptions = (options: Options<FindPetsByStatusData>) => queryOptions<FindPetsByStatusResponse, DefaultError, FindPetsByStatusResponse, ReturnType<typeof findPetsByStatusQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await Sdk.__registry.get().findPetsByStatus({
+        const { data } = await PetStore.__registry.get().findPetsByStatus({
             ...options,
             ...queryKey[0],
             signal,
@@ -106,7 +106,7 @@ export const findPetsByTagsQueryKey = (options: Options<FindPetsByTagsData>) => 
  */
 export const findPetsByTagsOptions = (options: Options<FindPetsByTagsData>) => queryOptions<FindPetsByTagsResponse, DefaultError, FindPetsByTagsResponse, ReturnType<typeof findPetsByTagsQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await Sdk.__registry.get().findPetsByTags({
+        const { data } = await PetStore.__registry.get().findPetsByTags({
             ...options,
             ...queryKey[0],
             signal,
@@ -125,7 +125,7 @@ export const findPetsByTagsOptions = (options: Options<FindPetsByTagsData>) => q
 export const deletePetMutation = (options?: Partial<Options<DeletePetData>>): UseMutationOptions<unknown, DefaultError, Options<DeletePetData>> => {
     const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeletePetData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().deletePet({
+            const { data } = await PetStore.__registry.get().deletePet({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -145,7 +145,7 @@ export const getPetByIdQueryKey = (options: Options<GetPetByIdData>) => createQu
  */
 export const getPetByIdOptions = (options: Options<GetPetByIdData>) => queryOptions<GetPetByIdResponse, DefaultError, GetPetByIdResponse, ReturnType<typeof getPetByIdQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await Sdk.__registry.get().getPetById({
+        const { data } = await PetStore.__registry.get().getPetById({
             ...options,
             ...queryKey[0],
             signal,
@@ -164,7 +164,7 @@ export const getPetByIdOptions = (options: Options<GetPetByIdData>) => queryOpti
 export const updatePetWithFormMutation = (options?: Partial<Options<UpdatePetWithFormData>>): UseMutationOptions<UpdatePetWithFormResponse, DefaultError, Options<UpdatePetWithFormData>> => {
     const mutationOptions: UseMutationOptions<UpdatePetWithFormResponse, DefaultError, Options<UpdatePetWithFormData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().updatePetWithForm({
+            const { data } = await PetStore.__registry.get().updatePetWithForm({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -183,7 +183,7 @@ export const updatePetWithFormMutation = (options?: Partial<Options<UpdatePetWit
 export const uploadFileMutation = (options?: Partial<Options<UploadFileData>>): UseMutationOptions<UploadFileResponse, DefaultError, Options<UploadFileData>> => {
     const mutationOptions: UseMutationOptions<UploadFileResponse, DefaultError, Options<UploadFileData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().uploadFile({
+            const { data } = await PetStore.__registry.get().uploadFile({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -203,7 +203,7 @@ export const getInventoryQueryKey = (options?: Options<GetInventoryData>) => cre
  */
 export const getInventoryOptions = (options?: Options<GetInventoryData>) => queryOptions<GetInventoryResponse, DefaultError, GetInventoryResponse, ReturnType<typeof getInventoryQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await Sdk.__registry.get().getInventory({
+        const { data } = await PetStore.__registry.get().getInventory({
             ...options,
             ...queryKey[0],
             signal,
@@ -222,7 +222,7 @@ export const getInventoryOptions = (options?: Options<GetInventoryData>) => quer
 export const placeOrderMutation = (options?: Partial<Options<PlaceOrderData>>): UseMutationOptions<PlaceOrderResponse, DefaultError, Options<PlaceOrderData>> => {
     const mutationOptions: UseMutationOptions<PlaceOrderResponse, DefaultError, Options<PlaceOrderData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().placeOrder({
+            const { data } = await PetStore.__registry.get().placeOrder({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -241,7 +241,7 @@ export const placeOrderMutation = (options?: Partial<Options<PlaceOrderData>>): 
 export const deleteOrderMutation = (options?: Partial<Options<DeleteOrderData>>): UseMutationOptions<unknown, DefaultError, Options<DeleteOrderData>> => {
     const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeleteOrderData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().deleteOrder({
+            const { data } = await PetStore.__registry.get().deleteOrder({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -261,7 +261,7 @@ export const getOrderByIdQueryKey = (options: Options<GetOrderByIdData>) => crea
  */
 export const getOrderByIdOptions = (options: Options<GetOrderByIdData>) => queryOptions<GetOrderByIdResponse, DefaultError, GetOrderByIdResponse, ReturnType<typeof getOrderByIdQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await Sdk.__registry.get().getOrderById({
+        const { data } = await PetStore.__registry.get().getOrderById({
             ...options,
             ...queryKey[0],
             signal,
@@ -280,7 +280,7 @@ export const getOrderByIdOptions = (options: Options<GetOrderByIdData>) => query
 export const createUserMutation = (options?: Partial<Options<CreateUserData>>): UseMutationOptions<CreateUserResponse, DefaultError, Options<CreateUserData>> => {
     const mutationOptions: UseMutationOptions<CreateUserResponse, DefaultError, Options<CreateUserData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().createUser({
+            const { data } = await PetStore.__registry.get().createUser({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -299,7 +299,7 @@ export const createUserMutation = (options?: Partial<Options<CreateUserData>>): 
 export const createUsersWithListInputMutation = (options?: Partial<Options<CreateUsersWithListInputData>>): UseMutationOptions<CreateUsersWithListInputResponse, DefaultError, Options<CreateUsersWithListInputData>> => {
     const mutationOptions: UseMutationOptions<CreateUsersWithListInputResponse, DefaultError, Options<CreateUsersWithListInputData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().createUsersWithListInput({
+            const { data } = await PetStore.__registry.get().createUsersWithListInput({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -319,7 +319,7 @@ export const loginUserQueryKey = (options?: Options<LoginUserData>) => createQue
  */
 export const loginUserOptions = (options?: Options<LoginUserData>) => queryOptions<LoginUserResponse, DefaultError, LoginUserResponse, ReturnType<typeof loginUserQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await Sdk.__registry.get().loginUser({
+        const { data } = await PetStore.__registry.get().loginUser({
             ...options,
             ...queryKey[0],
             signal,
@@ -339,7 +339,7 @@ export const logoutUserQueryKey = (options?: Options<LogoutUserData>) => createQ
  */
 export const logoutUserOptions = (options?: Options<LogoutUserData>) => queryOptions<unknown, DefaultError, unknown, ReturnType<typeof logoutUserQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await Sdk.__registry.get().logoutUser({
+        const { data } = await PetStore.__registry.get().logoutUser({
             ...options,
             ...queryKey[0],
             signal,
@@ -358,7 +358,7 @@ export const logoutUserOptions = (options?: Options<LogoutUserData>) => queryOpt
 export const deleteUserMutation = (options?: Partial<Options<DeleteUserData>>): UseMutationOptions<unknown, DefaultError, Options<DeleteUserData>> => {
     const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeleteUserData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().deleteUser({
+            const { data } = await PetStore.__registry.get().deleteUser({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -378,7 +378,7 @@ export const getUserByNameQueryKey = (options: Options<GetUserByNameData>) => cr
  */
 export const getUserByNameOptions = (options: Options<GetUserByNameData>) => queryOptions<GetUserByNameResponse, DefaultError, GetUserByNameResponse, ReturnType<typeof getUserByNameQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await Sdk.__registry.get().getUserByName({
+        const { data } = await PetStore.__registry.get().getUserByName({
             ...options,
             ...queryKey[0],
             signal,
@@ -397,7 +397,7 @@ export const getUserByNameOptions = (options: Options<GetUserByNameData>) => que
 export const updateUserMutation = (options?: Partial<Options<UpdateUserData>>): UseMutationOptions<unknown, DefaultError, Options<UpdateUserData>> => {
     const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<UpdateUserData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Sdk.__registry.get().updateUser({
+            const { data } = await PetStore.__registry.get().updateUser({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
