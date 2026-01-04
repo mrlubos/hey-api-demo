@@ -77,7 +77,7 @@ function App() {
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-800 underline"
             >
-              View Hey API Documentation
+              Docs
             </a>
           </p>
         </div>
