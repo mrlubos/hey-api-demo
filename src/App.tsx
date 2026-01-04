@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './com
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import type { Pet } from './client/types.gen'
-import './api' // Initialize SDK instance
 
 function App() {
   const [petId, setPetId] = useState('')
