@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "react": "warn",
+    "typescript": "warn",
+    "correctness": "warn"
+  }
+}

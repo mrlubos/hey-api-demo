@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
+  body {
+    margin: 0;
+  }
+}
+
