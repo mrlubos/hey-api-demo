@@ -114,7 +114,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().updatePet()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.updatePet()"
           }
         ]
       },
@@ -183,7 +183,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().addPet()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.addPet({\n    name: 'Fluffy',\n    id: 0,\n    status: 'available',\n    photoUrls: ['string'],\n    tags: [{\n            id: 0,\n            name: 'string'\n        }],\n    category: {\n        id: 0,\n        name: 'default'\n    }\n})"
           }
         ]
       }
@@ -254,7 +254,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().findPetsByStatus()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.findPetsByStatus({\n    status: 'available'\n})"
           }
         ]
       }
@@ -322,7 +322,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().findPetsByTags()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.findPetsByTags()"
           }
         ]
       }
@@ -387,7 +387,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().getPetById()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.getPetById({\n    petId: 1234\n})"
           }
         ]
       },
@@ -460,7 +460,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().updatePetWithForm()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.updatePetWithForm()"
           }
         ]
       },
@@ -514,7 +514,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().deletePet()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.deletePet()"
           }
         ]
       }
@@ -590,7 +590,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().uploadFile()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.uploadFile()"
           }
         ]
       }
@@ -631,7 +631,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().getInventory()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.getInventory()"
           }
         ]
       }
@@ -688,7 +688,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().placeOrder()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.placeOrder()"
           }
         ]
       }
@@ -743,7 +743,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().getOrderById()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.getOrderById()"
           }
         ]
       },
@@ -784,7 +784,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().deleteOrder()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.deleteOrder()"
           }
         ]
       }
@@ -841,7 +841,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().createUser()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.createUser()"
           }
         ]
       }
@@ -890,7 +890,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().createUsersWithListInput()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.createUsersWithListInput()"
           }
         ]
       }
@@ -965,7 +965,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().loginUser()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.loginUser()"
           }
         ]
       }
@@ -990,7 +990,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().logoutUser()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.logoutUser()"
           }
         ]
       }
@@ -1043,7 +1043,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().getUserByName()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.getUserByName()"
           }
         ]
       },
@@ -1103,7 +1103,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().updateUser()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.updateUser()"
           }
         ]
       },
@@ -1142,7 +1142,7 @@
         "x-codeSamples": [
           {
             "lang": "JavaScript",
-            "source": "import { PetStore } from 'your-package';\n\nawait new PetStore().deleteUser()"
+            "source": "import { PetStore } from '@petstore/client';\n\nconst client = new PetStore();\n\nawait client.deleteUser()"
           }
         ]
       }
