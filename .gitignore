@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Generated OpenAPI spec for Mintlify
+api-reference/openapi.json
