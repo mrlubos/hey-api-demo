@@ -2,7 +2,8 @@ export default {
   input: './petstore-openapi.yaml',
   output: {
     path: './src/client',
-    // Generate a copy of the input source with code examples attached
+    // Generate a copy of the input source specification with code examples attached
+    // This creates source.json which Mintlify uses to display API documentation
     source: true,
   },
   plugins: [
@@ -18,7 +19,8 @@ export default {
         containerName: 'PetStore', // Use container name in the SDK
         methods: 'instance', // Use instance methods instead of static
       },
-      // Enable code examples for SDK operations
+      // Enable automatic code examples - generates x-codeSamples in source.json
+      // These examples are automatically shown in Mintlify's API playground
       examples: true,
     },
     // Generate TanStack Query hooks for data fetching
