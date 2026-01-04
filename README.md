@@ -1,73 +1,94 @@
-# React + TypeScript + Vite
+# hey-api-demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application demonstrating the PetStore API using modern tooling:
+- **@hey-api/openapi-ts** for API client generation
+- **TanStack Query** for data fetching and caching
+- **Valibot** for schema validation
+- **Shadcn UI** for components
+- **Tailwind CSS** for styling
+- **Oxlint** for linting
 
-Currently, two official plugins are available:
+![PetStore API Demo](https://github.com/user-attachments/assets/0cee0a19-307b-449a-a942-d2af09f1d3ba)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+This demo implements several PetStore API endpoints:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **List Available Pets** - Fetches and displays pets with "available" status
+- **Add New Pet** - Creates a new pet in the store
+- **Find Pet by ID** - Searches for a specific pet by its ID
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Install dependencies
+npm install
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Generate API client from OpenAPI spec
+npm run generate:client
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Start development server
+npm run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Run linter
+npm run lint
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
+
+## OpenAPI Configuration
+
+The API client is generated from the PetStore OpenAPI specification. Configuration is in `openapi-ts.config.ts`:
+
+```typescript
+export default {
+  input: './petstore-openapi.yaml',
+  output: './src/client',
+  plugins: [
+    '@hey-api/typescript',
+    '@hey-api/client-fetch',
+    {
+      name: '@hey-api/sdk',
+      operations: {
+        strategy: 'single',
+        containerName: true,
+        methods: 'instance',
+      },
+    },
+    '@tanstack/react-query',
+  ],
+}
+```
+
+The SDK is instantiated as a singleton in `src/api.ts` and used throughout the application.
+
+## Tech Stack
+
+- **React 19** with TypeScript
+- **Vite** for build tooling
+- **TanStack Query v5** for server state management
+- **@hey-api/openapi-ts** for type-safe API client generation
+- **Tailwind CSS v4** for styling
+- **Shadcn UI** components
+- **Oxlint** for fast linting
+
+## Project Structure
+
+```
+src/
+├── client/          # Generated API client
+├── components/      # UI components
+│   └── ui/         # Shadcn UI components
+├── lib/            # Utility functions
+├── App.tsx         # Main application
+└── main.tsx        # Entry point
+```
+

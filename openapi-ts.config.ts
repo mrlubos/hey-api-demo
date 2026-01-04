@@ -1,11 +1,17 @@
 export default {
-  client: 'fetch',
   input: './petstore-openapi.yaml',
   output: './src/client',
   plugins: [
     '@hey-api/typescript',
-    '@hey-api/schemas',
+    '@hey-api/client-fetch',
+    {
+      name: '@hey-api/sdk',
+      operations: {
+        strategy: 'single',
+        containerName: true,
+        methods: 'instance',
+      },
+    },
     '@tanstack/react-query',
-    '@hey-api/sdk',
   ],
 }

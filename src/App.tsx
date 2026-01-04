@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './com
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import type { Pet } from './client/types.gen'
+import './api' // Initialize SDK instance
 
 function App() {
   const [petId, setPetId] = useState('')
@@ -50,11 +51,11 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-8">
+    <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold">PetStore API Demo</h1>
-          <p className="text-muted-foreground">
+          <p className="text-gray-600">
             Built with @hey-api/openapi-ts, TanStack Query, and Shadcn UI
           </p>
         </div>
@@ -106,13 +107,13 @@ function App() {
               </div>
               {isLoadingPet && <p className="text-sm">Loading...</p>}
               {specificPet && (
-                <div className="p-4 border rounded-lg space-y-2">
+                <div className="p-4 border border-gray-200 rounded-lg space-y-2">
                   <p className="font-semibold">{specificPet.name}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-600">
                     Status: {specificPet.status}
                   </p>
                   {specificPet.category && (
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-gray-600">
                       Category: {specificPet.category.name}
                     </p>
                   )}
@@ -138,12 +139,12 @@ function App() {
                 {availablePets.slice(0, 12).map((pet: Pet) => (
                   <div
                     key={pet.id}
-                    className="p-4 border rounded-lg hover:shadow-md transition-shadow"
+                    className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
                   >
                     <h3 className="font-semibold">{pet.name}</h3>
-                    <p className="text-sm text-muted-foreground">ID: {pet.id}</p>
+                    <p className="text-sm text-gray-600">ID: {pet.id}</p>
                     {pet.category && (
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-600">
                         {pet.category.name}
                       </p>
                     )}
@@ -152,7 +153,7 @@ function App() {
                         {pet.tags.map((tag) => (
                           <span
                             key={tag.id}
-                            className="text-xs bg-secondary px-2 py-1 rounded"
+                            className="text-xs bg-gray-100 px-2 py-1 rounded"
                           >
                             {tag.name}
                           </span>
