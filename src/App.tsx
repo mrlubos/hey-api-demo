@@ -70,6 +70,16 @@ function App() {
           <p className="text-gray-600">
             Built with @hey-api/openapi-ts, TanStack Query, and Shadcn UI
           </p>
+          <p className="text-sm">
+            <a
+              href="https://heyapi.mintlify.app/api-reference/introduction"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 underline"
+            >
+              View Hey API Documentation
+            </a>
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
