@@ -1,0 +1,259 @@
+---
+title: 'Add New Pet'
+api: 'POST /pet'
+description: 'Add a new pet to the store'
+---
+
+## Overview
+
+Add a new pet to the store with the specified details.
+
+## Endpoint
+
+```
+POST /pet
+```
+
+## Authentication
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token for authentication
+  
+  Example: `Bearer your-access-token`
+</ParamField>
+
+## Request Body
+
+<ParamField body="name" type="string" required>
+  Name of the pet
+  
+  Example: `"Fluffy"`
+</ParamField>
+
+<ParamField body="photoUrls" type="string[]" required>
+  Array of photo URLs for the pet
+  
+  Example: `["https://example.com/photo.jpg"]`
+</ParamField>
+
+<ParamField body="id" type="integer">
+  Unique identifier (optional, auto-generated if not provided)
+</ParamField>
+
+<ParamField body="category" type="object">
+  Category the pet belongs to
+  
+  <Expandable title="Category Properties">
+    <ParamField body="id" type="integer">
+      Category ID
+    </ParamField>
+    <ParamField body="name" type="string">
+      Category name
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="tags" type="Tag[]">
+  Tags associated with the pet
+  
+  <Expandable title="Tag Properties">
+    <ParamField body="id" type="integer">
+      Tag ID
+    </ParamField>
+    <ParamField body="name" type="string">
+      Tag name
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="status" type="string">
+  Pet status in the store
+  
+  Options: `available`, `pending`, `sold`
+  
+  Default: `available`
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="Pet">
+  The created pet object
+</ResponseField>
+
+## Code Examples
+
+### Using the SDK
+
+```typescript
+import { sdk } from './api'
+
+const { data, error } = await sdk.addPet({
+  body: {
+    name: 'Fluffy',
+    photoUrls: ['https://example.com/fluffy.jpg'],
+    category: {
+      id: 1,
+      name: 'Dogs'
+    },
+    tags: [
+      { id: 1, name: 'friendly' },
+      { id: 2, name: 'trained' }
+    ],
+    status: 'available'
+  }
+})
+
+if (error) {
+  console.error('Failed to add pet:', error)
+  return
+}
+
+console.log('Pet added successfully:', data)
+```
+
+### Using TanStack Query Hook
+
+```typescript
+import { useAddPetMutation } from './client/@tanstack/react-query.gen'
+import { sdk } from './api'
+
+function AddPetForm() {
+  const mutation = useAddPetMutation({
+    client: sdk
+  })
+
+  const handleSubmit = async (petData) => {
+    mutation.mutate({
+      body: {
+        name: petData.name,
+        photoUrls: petData.photoUrls,
+        status: 'available'
+      }
+    }, {
+      onSuccess: (data) => {
+        console.log('Pet added:', data)
+      },
+      onError: (error) => {
+        console.error('Failed to add pet:', error)
+      }
+    })
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* form fields */}
+      <button type="submit" disabled={mutation.isPending}>
+        {mutation.isPending ? 'Adding...' : 'Add Pet'}
+      </button>
+    </form>
+  )
+}
+```
+
+## Request Example
+
+```json
+{
+  "name": "Fluffy",
+  "photoUrls": [
+    "https://example.com/fluffy.jpg"
+  ],
+  "category": {
+    "id": 1,
+    "name": "Dogs"
+  },
+  "tags": [
+    {
+      "id": 1,
+      "name": "friendly"
+    }
+  ],
+  "status": "available"
+}
+```
+
+## Response Examples
+
+### Success Response (200)
+
+```json
+{
+  "id": 123,
+  "name": "Fluffy",
+  "category": {
+    "id": 1,
+    "name": "Dogs"
+  },
+  "photoUrls": [
+    "https://example.com/fluffy.jpg"
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "name": "friendly"
+    }
+  ],
+  "status": "available"
+}
+```
+
+### Error Response (400)
+
+```json
+{
+  "code": 400,
+  "message": "Invalid input"
+}
+```
+
+### Error Response (422)
+
+```json
+{
+  "code": 422,
+  "message": "Validation exception"
+}
+```
+
+## Status Codes
+
+| Code | Description |
+|------|-------------|
+| 200  | Successful operation |
+| 400  | Invalid input |
+| 422  | Validation exception |
+
+<Warning>
+  This endpoint requires authentication with the `write:pets` and `read:pets` scopes.
+</Warning>
+
+## Try it Out
+
+<CodeGroup>
+
+```typescript SDK
+import { sdk } from './api'
+
+const result = await sdk.addPet({
+  body: {
+    name: 'Fluffy',
+    photoUrls: ['https://example.com/photo.jpg'],
+    status: 'available'
+  }
+})
+```
+
+```typescript React Query
+import { useAddPetMutation } from './client/@tanstack/react-query.gen'
+
+const mutation = useAddPetMutation({ client: sdk })
+
+mutation.mutate({
+  body: { 
+    name: 'Fluffy', 
+    photoUrls: ['https://example.com/photo.jpg'] 
+  }
+})
+```
+
+</CodeGroup>

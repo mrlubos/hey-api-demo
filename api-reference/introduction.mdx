@@ -1,0 +1,166 @@
+---
+title: 'API Reference'
+description: 'PetStore API endpoints with auto-generated code examples'
+---
+
+## Overview
+
+The PetStore API provides endpoints for managing pets, store orders, and users. This documentation includes auto-generated code examples powered by [@hey-api/openapi-ts](https://heyapi.dev/openapi-ts).
+
+## Base URL
+
+```
+https://petstore3.swagger.io/api/v3
+```
+
+## Authentication
+
+The API uses OAuth2 for authentication. Some endpoints require authentication with specific scopes.
+
+### OAuth2 Flow
+
+```typescript
+import { client } from './client'
+
+// Configure authentication
+client.setConfig({
+  baseUrl: 'https://petstore3.swagger.io/api/v3',
+  headers: {
+    Authorization: `Bearer ${accessToken}`
+  }
+})
+```
+
+## SDK Client
+
+The API client is generated using @hey-api/openapi-ts with the following configuration:
+
+- **Strategy**: Single SDK class (`PetStore`)
+- **Methods**: Instance methods
+- **Examples**: Auto-generated code samples
+- **Query Hooks**: TanStack Query integration
+
+### Basic Usage
+
+```typescript
+import { PetStore } from './client'
+
+// Create SDK instance
+const sdk = new PetStore()
+
+// Use SDK methods
+const { data } = await sdk.findPetsByStatus({
+  query: { status: 'available' }
+})
+```
+
+### With TanStack Query
+
+```typescript
+import { useFindPetsByStatusQuery } from './client/@tanstack/react-query.gen'
+import { sdk } from './api'
+
+function PetList() {
+  const { data, isLoading } = useFindPetsByStatusQuery({
+    client: sdk,
+    query: { status: 'available' }
+  })
+  
+  return <div>{/* render pets */}</div>
+}
+```
+
+## API Categories
+
+<CardGroup cols={2}>
+  <Card title="Pet Operations" icon="paw" href="#pet-operations">
+    Manage pets in the store
+  </Card>
+  <Card title="Store Operations" icon="store" href="#store-operations">
+    Access to Petstore orders
+  </Card>
+  <Card title="User Operations" icon="user" href="#user-operations">
+    Operations about users
+  </Card>
+</CardGroup>
+
+## Pet Operations
+
+Endpoints for managing pets in the store.
+
+### Key Endpoints
+
+- **GET** `/pet/findByStatus` - Find pets by status
+- **POST** `/pet` - Add a new pet to the store
+- **GET** `/pet/{petId}` - Find pet by ID
+- **PUT** `/pet` - Update an existing pet
+- **DELETE** `/pet/{petId}` - Delete a pet
+
+## Store Operations
+
+Endpoints for managing store orders.
+
+### Key Endpoints
+
+- **GET** `/store/inventory` - Returns pet inventories by status
+- **POST** `/store/order` - Place an order for a pet
+- **GET** `/store/order/{orderId}` - Find purchase order by ID
+- **DELETE** `/store/order/{orderId}` - Delete purchase order by ID
+
+## User Operations
+
+Endpoints for user management.
+
+### Key Endpoints
+
+- **POST** `/user` - Create user
+- **GET** `/user/{username}` - Get user by username
+- **PUT** `/user/{username}` - Update user
+- **DELETE** `/user/{username}` - Delete user
+- **GET** `/user/login` - Logs user into the system
+- **GET** `/user/logout` - Logs out current logged in user session
+
+<Note>
+  All code examples in this documentation are auto-generated from the OpenAPI specification.
+  The examples use the SDK pattern with instance methods for better testability.
+</Note>
+
+## Response Format
+
+By default, the SDK returns an object with multiple fields:
+
+```typescript
+{
+  data: Pet[],           // Response data
+  error: null,           // Error if request failed
+  response: Response,    // Raw fetch Response object
+  request: Request       // Original fetch Request object
+}
+```
+
+## Error Handling
+
+```typescript
+const { data, error } = await sdk.addPet({
+  body: { name: 'Fluffy', photoUrls: [] }
+})
+
+if (error) {
+  console.error('Failed to add pet:', error)
+  return
+}
+
+console.log('Pet added:', data)
+```
+
+## Type Safety
+
+All endpoints include full TypeScript type definitions:
+
+```typescript
+import type { 
+  FindPetsByStatusData,
+  FindPetsByStatusResponses,
+  FindPetsByStatusErrors 
+} from './client/types.gen'
+```
